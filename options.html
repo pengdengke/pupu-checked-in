@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>噗噗打卡记录器 - 设置</title>
+    <link rel="stylesheet" href="options.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>噗噗打卡记录器设置</h1>
+        </header>
+        
+        <div class="settings-section">
+            <h3>热力图显示设置</h3>
+            <div class="setting-item">
+                <label for="heatmapPeriod">热力图显示时间范围：</label>
+                <select id="heatmapPeriod">
+                    <option value="30">一个月 (30天)</option>
+                    <option value="90">三个月 (90天)</option>
+                    <option value="180">六个月 (180天)</option>
+                    <option value="365">一年 (365天)</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="settings-section">
+            <h3>其他设置</h3>
+            <div class="setting-item">
+                <label for="maxHistoryItems">今日噗噗打卡记录最大显示条数：</label>
+                <input type="number" id="maxHistoryItems" min="3" max="20" value="3">
+            </div>
+        </div>
+        
+        <div class="actions">
+            <button id="saveBtn" class="save-btn">保存设置</button>
+            <button id="resetBtn" class="reset-btn">重置设置</button>
+        </div>
+        
+        <div class="status" id="status"></div>
+    </div>
+    
+    <script src="options.js"></script>
+</body>
+</html>

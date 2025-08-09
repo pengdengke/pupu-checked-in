@@ -1,0 +1,279 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 400px;
+    min-height: 500px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #333;
+}
+
+.container {
+    padding: 20px;
+    background: white;
+    min-height: 500px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+    position: relative;
+}
+
+header h1 {
+    color: #4a5568;
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.current-time {
+    font-size: 14px;
+    color: #718096;
+    font-weight: 500;
+}
+
+.settings-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    color: #718096;
+}
+
+.settings-btn:hover {
+    background: #f7fafc;
+    color: #4a5568;
+    transform: rotate(90deg);
+}
+
+.check-in-section {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.check-in-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.check-in-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.check-in-btn:active {
+    transform: translateY(0);
+}
+
+.check-in-status {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #48bb78;
+    font-weight: 500;
+}
+
+.stats-section {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    padding: 15px;
+    background: #f7fafc;
+    border-radius: 10px;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-label {
+    display: block;
+    font-size: 12px;
+    color: #718096;
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    display: block;
+    font-size: 24px;
+    font-weight: bold;
+    color: #4a5568;
+}
+
+.heatmap-section {
+    margin-bottom: 25px;
+}
+
+.heatmap-section h3 {
+    color: #4a5568;
+    font-size: 18px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.heatmap-container {
+    margin: 20px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.heatmap-grid {
+    display: flex;
+    gap: 3px;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 0 auto;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.heatmap-column {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 12px;
+    padding: 0 10px;
+}
+
+.day-label {
+    font-size: 12px;
+    color: #718096;
+    text-align: center;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.heatmap-day {
+    width: 15px;
+    height: 15px;
+    border-radius: 2px;
+    background: #ebedf0;
+    border: 1px solid #e1e4e8;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* .heatmap-day:hover {
+    transform: scale(1.2);
+    z-index: 10;
+    position: relative;
+} */
+
+.heatmap-day.level-0 {
+    background: #ebedf0;
+}
+
+.heatmap-day.level-1 {
+    background: #9be9a8;
+}
+
+.heatmap-day.level-2 {
+    background: #40c463;
+}
+
+.heatmap-day.level-3 {
+    background: #30a14e;
+}
+
+.heatmap-day.level-4 {
+    background: #216e39;
+}
+
+.history-section {
+    margin-bottom: 20px;
+}
+
+.history-section h3 {
+    color: #4a5568;
+    font-size: 18px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.history-list {
+    max-height: 150px;
+    overflow-y: auto;
+    background: #f7fafc;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    margin-bottom: 5px;
+    background: white;
+    border-radius: 6px;
+    border-left: 4px solid #667eea;
+    transition: all 0.2s ease;
+}
+
+.history-item:last-child {
+    margin-bottom: 0;
+}
+
+.history-item:hover {
+    transform: translateX(2px);
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+}
+
+.history-time {
+    font-size: 14px;
+    color: #4a5568;
+    font-weight: 500;
+}
+
+.history-count {
+    background: #667eea;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* 滚动条样式 */
+.history-list::-webkit-scrollbar,
+.heatmap-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.history-list::-webkit-scrollbar-track,
+.heatmap-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.history-list::-webkit-scrollbar-thumb,
+.heatmap-container::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.history-list::-webkit-scrollbar-thumb:hover,
+.heatmap-container::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
