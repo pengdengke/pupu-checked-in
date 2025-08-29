@@ -17,6 +17,12 @@ class CheckInTracker {
         this.heatmapContainer = document.getElementById('heatmapContainer');
         this.historyList = document.getElementById('historyList');
         this.settingsBtn = document.getElementById('settingsBtn');
+    // 指定打卡元素
+    this.specificCheckInBtn = document.getElementById('specificCheckInBtn');
+    this.specificModal = document.getElementById('specificModal');
+    this.specificDateInput = document.getElementById('specificDateInput');
+    this.specificCancelBtn = document.getElementById('specificCancelBtn');
+    this.specificConfirmBtn = document.getElementById('specificConfirmBtn');
 
         // 默认设置
         this.settings = {
@@ -35,6 +41,16 @@ class CheckInTracker {
     bindEvents() {
         this.checkInBtn.addEventListener('click', () => this.checkIn());
         this.settingsBtn.addEventListener('click', () => this.openSettings());
+        // 指定打卡事件绑定
+        if (this.specificCheckInBtn) {
+            this.specificCheckInBtn.addEventListener('click', () => this.openSpecificModal());
+        }
+        if (this.specificCancelBtn) {
+            this.specificCancelBtn.addEventListener('click', () => this.closeSpecificModal());
+        }
+        if (this.specificConfirmBtn) {
+            this.specificConfirmBtn.addEventListener('click', () => this.confirmSpecificCheckIn());
+        }
     }
 
     updateTime() {
@@ -104,6 +120,75 @@ class CheckInTracker {
         } catch (error) {
             console.error('打卡失败:', error);
             this.showCheckInStatus('打卡失败，请重试');
+        }
+    }
+
+    openSpecificModal() {
+        // 设置日期最大值为今天
+        const today = new Date().toISOString().split('T')[0];
+        if (this.specificDateInput) {
+            this.specificDateInput.max = today;
+            this.specificDateInput.value = today;
+        }
+        if (this.specificModal) this.specificModal.style.display = 'flex';
+    }
+
+    closeSpecificModal() {
+        if (this.specificModal) this.specificModal.style.display = 'none';
+    }
+
+    async confirmSpecificCheckIn() {
+        const dateInput = this.specificDateInput ? this.specificDateInput.value : null;
+        if (!dateInput) {
+            this.showCheckInStatus('请选择一个有效的日期');
+            return;
+        }
+
+        const chosenDate = new Date(dateInput);
+        const today = new Date();
+        // strip time
+        chosenDate.setHours(0,0,0,0);
+        today.setHours(0,0,0,0);
+
+        if (chosenDate > today) {
+            this.showCheckInStatus('只能选择今天或以前的日期');
+            return;
+        }
+
+        // 创建记录（时间按当前时间）
+        const now = new Date();
+        const checkInData = {
+            timestamp: now.getTime(),
+            date: dateInput,
+            time: now.toLocaleTimeString('zh-CN', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            })
+        };
+
+        try {
+            const result = await chrome.storage.local.get(['checkInHistory', 'lastCheckInDate']);
+            let history = result.checkInHistory || [];
+
+            // 将记录追加到指定日期
+            history.push(checkInData);
+
+            await chrome.storage.local.set({
+                checkInHistory: history,
+                lastCheckInDate: checkInData.date
+            });
+
+            this.showCheckInStatus('指定打卡已记录');
+            this.closeSpecificModal();
+            this.loadData();
+
+            setTimeout(() => {
+                this.checkInStatus.textContent = '';
+            }, 3000);
+        } catch (error) {
+            console.error('指定打卡失败:', error);
+            this.showCheckInStatus('指定打卡失败，请重试');
         }
     }
 
